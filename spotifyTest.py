@@ -22,47 +22,60 @@ class Refresh:
                                  headers={"Authorization": "Basic " + os.getenv("SPOTIFY_BASE_64")})
 
         response_json = response.json()
-        print(response_json)
 
         return response_json["access_token"]
 
-a = Refresh()
-a.refresh()
+class PlaySong:
 
-# # Credentials you get from registering a new application
-# client_id = os.getenv("SPOTIFY_CLIENT_ID")
-# client_secret = os.getenv("SPOTIFY_SECRET")
-# redirect_uri = 'https://localhost:3000'
-# # 
-# # OAuth endpoints given in the Spotify API documentation
-# # https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
-# authorization_base_url = "https://accounts.spotify.com/authorize"
-# token_url = "https://accounts.spotify.com/api/token"
-# # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-# scope = [
-#     "user-modify-playback-state",
-#     "user-read-playback-state"
-# ]
-# # 
-# # 
-# spotify = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
-# # 
-# # Redirect user to Spotify for authorization
-# authorization_url, state = spotify.authorization_url(authorization_base_url)
-# print('Please go here and authorize: ', authorization_url)
-# # 
-# # Get the authorization verifier code from the callback url
-# redirect_response = input('\n\nPaste the full redirect URL here: ')
-# # 
-# # 
-# # 
-# auth = HTTPBasicAuth(client_id, client_secret)
-# # 
-# # Fetch the access token
-# token = spotify.fetch_token(token_url, auth=auth, authorization_response=redirect_response)
-# # 
-# print(token)
-# # 
-# # Fetch a protected resource, i.e. user profile
-# r = spotify.get('https://api.spotify.com/v1/me')
-# print(r.content)
+    def __init__(self):
+        self.user_id = os.getenv("SPOTIFY_USER_ID")
+        self.spotify_token = ""
+
+    def play_song(self, artist, trackTitle):
+
+        print(f"Attempting to play {trackTitle} by {artist}")
+
+        search_headers = {
+            'Authorization': 'Bearer {}'.format(self.spotify_token),
+        }
+
+        search_params = {
+            'q': f'track:{trackTitle} artist:{artist}',
+            'type': 'track',
+            'limit': '1',
+        }
+
+        search_response = requests.get('https://api.spotify.com/v1/search', params=search_params, headers=search_headers)
+
+        response_json = search_response.json()
+
+        track_uri = response_json["tracks"]["items"][0]["uri"]
+
+        print(track_uri)
+
+        play_headers = {
+            'Authorization': 'Bearer {}'.format(self.spotify_token),
+            'Content-Type': 'application/json',
+        }
+
+        play_params = {
+            'device_id': os.getenv("SPOTIFY_DEVICE_ID"),
+        }
+
+        play_json_data = {
+            'uris': [
+                track_uri,
+            ],
+            'position_ms': 0,
+        }
+
+        requests.put('https://api.spotify.com/v1/me/player/play', params=play_params, headers=play_headers, json=play_json_data)
+
+    def refresh_auth(self):
+        
+        refreshObject = Refresh()
+        self.spotify_token = refreshObject.refresh()
+
+a = PlaySong()
+a.refresh_auth()
+a.play_song("mf doom", "hoe cakes")
