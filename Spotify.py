@@ -75,7 +75,3 @@ class PlaySong:
         
         refreshObject = Refresh()
         self.spotify_token = refreshObject.refresh()
-
-a = PlaySong()
-a.refresh_auth()
-a.play_song("mf doom", "hoe cakes")
