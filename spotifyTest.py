@@ -40,8 +40,8 @@ a.refresh()
 # token_url = "https://accounts.spotify.com/api/token"
 # # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 # scope = [
-#     "user-read-email",
-#     "playlist-read-collaborative"
+#     "user-modify-playback-state",
+#     "user-read-playback-state"
 # ]
 # # 
 # # 
