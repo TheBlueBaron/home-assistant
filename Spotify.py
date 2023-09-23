@@ -51,7 +51,9 @@ class PlaySong:
 
         track_uri = response_json["tracks"]["items"][0]["uri"]
 
-        print(track_uri)
+        self.play_track(track_uri)
+
+    def play_track(self, uri):
 
         play_headers = {
             'Authorization': 'Bearer {}'.format(self.spotify_token),
@@ -64,7 +66,7 @@ class PlaySong:
 
         play_json_data = {
             'uris': [
-                track_uri,
+                uri,
             ],
             'position_ms': 0,
         }

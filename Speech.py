@@ -45,7 +45,7 @@ class Speech():
             text = r.recognize_google(audio_data)
             print('Recorded Speech:' + text)
 
-        return text
+        return text.lower()
 
     def parse_spotify_track(self, input):
 
