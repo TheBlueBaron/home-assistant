@@ -1,8 +1,19 @@
+from gtts import gTTS
+
 import speech_recognition as sr
 import pyaudio
 import wave
+import os
 
 class Speech():
+
+    def output_speech(self, text, language):
+
+        speech = gTTS(text=text, lang=language, slow=False)
+
+        speech.save("outSpeech.mp3")
+
+        os.system("mpg321 outSpeech.mp3")
 
     def record_speech(self):
 
