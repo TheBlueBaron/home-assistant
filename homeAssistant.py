@@ -1,8 +1,12 @@
 import Speech
 import Spotify
+import Wiki
 
 voice = Speech.Speech()
 # track_player = Spotify.PlaySong()
+wiki = Wiki.Wiki()
+
+wiki_summary = wiki.getWikiSummary("Stack Overflow")
 
 # input = voice.record_speech()
 # artist, track = voice.parse_spotify_track(input)
@@ -10,7 +14,6 @@ voice = Speech.Speech()
 # track_player.refresh_auth()
 # track_player.play_song(artist, track)
 
-text = "This is some test text"
 language = "en"
 
-voice.output_speech(text=text, language=language)
+voice.output_speech(text=wiki_summary, language=language)

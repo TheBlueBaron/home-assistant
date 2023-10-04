@@ -1,9 +1,9 @@
 from gtts import gTTS
+from playsound import playsound
 
 import speech_recognition as sr
 import pyaudio
 import wave
-import os
 
 class Speech():
 
@@ -13,7 +13,7 @@ class Speech():
 
         speech.save("outSpeech.mp3")
 
-        os.system("mpg321 outSpeech.mp3")
+        playsound("outSpeech.mp3")
 
     def record_speech(self):
 
