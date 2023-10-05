@@ -58,17 +58,26 @@ class Speech():
 
         return text.lower()
 
+    def parse_between(self, input, first, last):
+        
+        start = input.index( first ) + len( first )
+        end = input.index( last, start )
+        parsed_input = input[start:end]
+
+        return parsed_input
+
+    def parse_from(self, input, delim):
+
+        return input.partition(delim)[2]
+
     def parse_spotify_track(self, input):
 
         first = "play "
         last = " by"
         delim = "by "
 
-        start = input.index( first ) + len( first )
-        end = input.index( last, start )
-        track = input[start:end]
-
-        artist = input.partition(delim)[2]
+        artist = self.parse_from(input, delim)
+        track = self.parse_between(input, first, last)
 
         return artist, track
 
