@@ -1,9 +1,6 @@
 from dotenv import load_dotenv
 import os
-from requests_oauthlib import OAuth2Session
-from requests.auth import HTTPBasicAuth
 import requests
-import json
 
 load_dotenv()
 
