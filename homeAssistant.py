@@ -1,10 +1,12 @@
 import Speech
 import Spotify
 import Wiki
+import Weather
 
 voice = Speech.Speech()
 track_player = Spotify.PlaySong()
 wiki = Wiki.Wiki()
+# weather = Weather.Weather()
 
 language = "en"
 
@@ -27,8 +29,12 @@ while True:
             track_player.play_song(artist, track)
         elif "search" in input:
             wiki_title = voice.parse_from(input, "search ")
-            wiki_summary = wiki.getWikiSummary(wiki_title)
+            wiki_summary = wiki.get_wiki_summary(wiki_title)
             
             voice.output_speech(wiki_summary, language)
         else:
             voice.output_speech("Command not recognised", language)
+
+# weather_locations = weather.get_weather_locations()
+# site_id = weather.get_site_id(weather_locations, "Alloa")
+# forecast = weather.get_forecast(site_id)
