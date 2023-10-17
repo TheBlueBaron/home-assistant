@@ -6,10 +6,6 @@ import datetime
 
 class Weather:
 
-    def get_weather_forecast(self):
-
-        return 0
-
     def get_weather_locations(self):
 
         query = f"http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/sitelist?key={os.getenv('DATAPOINT_API_KEY')}"

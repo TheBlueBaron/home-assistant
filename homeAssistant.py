@@ -9,7 +9,6 @@ wiki = Wiki.Wiki()
 weather = Weather.Weather()
 
 weather_locations = weather.get_weather_locations()
-
 language = "en"
 
 WAKE_PHRASE = "awaken"
