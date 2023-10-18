@@ -1,8 +1,9 @@
 import requests
 from dotenv import load_dotenv
 import os
-import json
 import datetime
+
+load_dotenv()
 
 class Weather:
 
@@ -14,11 +15,7 @@ class Weather:
 
         response_json = response.json()
 
-        json_object = json.dumps(response_json)
-
-        json_load = json.loads(json_object)
-
-        return json_load
+        return response_json
 
     def get_site_id(self, weather_locations, location):
 
@@ -39,11 +36,9 @@ class Weather:
 
         response_json = response.json()
 
-        json_object = json.dumps(response_json)
+        current_day_forecasts = response_json["SiteRep"]["DV"]["Location"]["Period"][0]["Rep"]
 
-        json_load = json.loads(json_object)
-
-        current_day_forecasts = json_load["SiteRep"]["DV"]["Location"]["Period"][0]["Rep"]
+        location_name = response_json["SiteRep"]["DV"]["Location"]["name"]
 
         current_time = datetime.datetime.now()
         current_hour = current_time.hour
@@ -124,7 +119,7 @@ class Weather:
             case _:
                 weather_condition = str("")
 
-        forecast = f'The current three hour forecast is {weather_condition} with a temperature of {three_hour_forecast["T"]} degrees celcius which feels like {three_hour_forecast["F"]} degrees celcius.  Wind speed is {three_hour_forecast["S"]} miles per hour with gusts up to {three_hour_forecast["G"]} miles per hour'
+        forecast = f'The current three hour forecast for {location_name} is {weather_condition} with a temperature of {three_hour_forecast["T"]} degrees celcius which feels like {three_hour_forecast["F"]} degrees celcius.  Wind speed is {three_hour_forecast["S"]} miles per hour with gusts up to {three_hour_forecast["G"]} miles per hour'
 
         return forecast
 

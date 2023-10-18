@@ -2,11 +2,13 @@ import Speech
 import Spotify
 import Wiki
 import Weather
+import News
 
 voice = Speech.Speech()
 track_player = Spotify.PlaySong()
 wiki = Wiki.Wiki()
 weather = Weather.Weather()
+news = News.News()
 
 weather_locations = weather.get_weather_locations()
 language = "en"
@@ -38,5 +40,10 @@ while True:
             site_id = weather.get_site_id(weather_locations, weather_search_location)
             forecast = weather.get_forecast(site_id)
             voice.output_speech(forecast, language)
+        elif "news" in input:
+            headlines = news.get_headlines()
+
+            for headline in headlines:
+                voice.output_speech(headline, "en")
         else:
             voice.output_speech("Command not recognised", language)
