@@ -41,9 +41,12 @@ while True:
             forecast = weather.get_forecast(site_id)
             voice.output_speech(forecast, language)
         elif "news" in input:
-            headlines = news.get_headlines()
+            if "top" in input:
+                voice.output_speech(news.get_top_story(), language)
+            else:
+                headlines = news.get_headlines()
 
-            for headline in headlines:
-                voice.output_speech(headline, "en")
+                for headline in headlines:
+                    voice.output_speech(headline, language)
         else:
             voice.output_speech("Command not recognised", language)
