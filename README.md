@@ -6,4 +6,5 @@
     <li>SpeechRecognition</li>
     <li>python-dotenv</li>
     <li>requests</li>
+    <li>openai<li>
 </ul>
