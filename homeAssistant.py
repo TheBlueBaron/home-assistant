@@ -3,12 +3,14 @@ import Spotify
 import Wiki
 import Weather
 import News
+import Maps
 
 voice = Speech.Speech()
 track_player = Spotify.PlaySong()
 wiki = Wiki.Wiki()
 weather = Weather.Weather()
 news = News.News()
+maps = Maps.Maps()
 
 weather_locations = weather.get_weather_locations()
 language = "en"
@@ -48,5 +50,16 @@ while True:
 
                 for headline in headlines:
                     voice.output_speech(headline, language)
+        elif "maps" in input:
+            location = voice.parse_from(input, " in")
+            category = voice.parse_between(input, "maps ", " in")
+            if (category in maps.allowed_categories):
+                locations = maps.search_nearby(location, category)
+                for i in range(len(locations)):
+                    voice.output_speech(locations[i]['Name'], language)
+                    voice.output_speech(locations[i]['Address'], language)
+            else:
+                voice.output_speech("Category not recognised", language)
         else:
             voice.output_speech("Command not recognised", language)
+

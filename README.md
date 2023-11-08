@@ -8,4 +8,5 @@
     <li>requests</li>
     <li>openai</li>
     <li>beautifulsoup4</li>
+    <li>googlemaps</li>
 </ul>
