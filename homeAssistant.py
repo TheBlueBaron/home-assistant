@@ -54,7 +54,7 @@ while True:
             location = voice.parse_from(input, " in")
             category = voice.parse_between(input, "maps ", " in")
             if (category in maps.allowed_categories):
-                locations = maps.search_nearby(location, category)
+                locations = maps.search_nearby(location, category.replace(" ", "_"))
                 for i in range(len(locations)):
                     voice.output_speech(locations[i]['Name'], language)
                     voice.output_speech(locations[i]['Address'], language)
