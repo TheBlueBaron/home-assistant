@@ -1,5 +1,6 @@
 import os
 import googlemaps
+import random
 
 class Maps:
 
@@ -118,9 +119,17 @@ class Maps:
         formatted_locations = []
 
         for i in range(len(nearby_locations['results'])):
-            loc = {'Name' : nearby_locations['results'][i]['name'], 'Address' : nearby_locations['results'][i]['vicinity']}
-            formatted_locations.append(loc)
+            found_location = {'Name' : nearby_locations['results'][i]['name'], 'Address' : nearby_locations['results'][i]['vicinity']}
+            formatted_locations.append(found_location)
 
         return formatted_locations
+
+    def random_location_choice(self, location, category):
+
+        locations = self.search_nearby(location, category)
+
+        random_index = random.randint(0, (len(locations)) - 1)
+
+        return locations[random_index]
 
         

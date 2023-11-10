@@ -51,15 +51,24 @@ while True:
                 for headline in headlines:
                     voice.output_speech(headline, language)
         elif "maps" in input:
-            location = voice.parse_from(input, " in")
-            category = voice.parse_between(input, "maps ", " in")
-            if (category in maps.allowed_categories):
-                locations = maps.search_nearby(location, category.replace(" ", "_"))
-                for i in range(len(locations)):
-                    voice.output_speech(locations[i]['Name'], language)
-                    voice.output_speech(locations[i]['Address'], language)
-            else:
-                voice.output_speech("Category not recognised", language)
+            if "find" in input:
+                location = voice.parse_from(input, " in")
+                category = voice.parse_between(input, "find ", " in")
+                if (category in maps.allowed_categories):
+                    locations = maps.search_nearby(location, category.replace(" ", "_").lower())
+                    for i in range(len(locations)):
+                        voice.output_speech(locations[i]['Name'], language)
+                        voice.output_speech(locations[i]['Address'], language)
+                else:
+                    voice.output_speech("Category not recognised", language)
+            elif "give me" in input:
+                location = voice.parse_from(input, " in")
+                category = voice.parse_between(input, "me ", " in")
+                if (category in maps.allowed_categories):
+                    random_location = maps.random_location_choice(location, category.replace(" ", "_").lower())
+                    voice.output_speech(random_location.get('Name'), language)
+                    voice.output_speech(random_location.get('Address'), language)
+                else:
+                    voice.output_speech("Category not recognised", language)
         else:
             voice.output_speech("Command not recognised", language)
-
