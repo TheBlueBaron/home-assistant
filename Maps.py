@@ -106,15 +106,16 @@ class Maps:
         "zoo",
     ]
 
+    def __init__(self):
+        self.google_maps = googlemaps.Client(key=os.getenv('GOOGLE_MAPS_API_KEY'))
+
     def search_nearby(self, location, category):
 
-        google_maps = googlemaps.Client(key=os.getenv('GOOGLE_MAPS_API_KEY'))
-
-        location_geocode = google_maps.geocode(location)
+        location_geocode = self.google_maps.geocode(location)
 
         location_lat_lng = (location_geocode[0]['geometry']['location']['lat'], location_geocode[0]['geometry']['location']['lng'])
 
-        nearby_locations = google_maps.places_nearby(location=location_lat_lng, radius=1000, type=category)
+        nearby_locations = self.google_maps.places_nearby(location=location_lat_lng, radius=1000, type=category)
 
         formatted_locations = []
 
