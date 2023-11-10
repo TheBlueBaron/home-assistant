@@ -45,6 +45,8 @@ while True:
         elif "news" in input:
             if "top" in input:
                 voice.output_speech(news.get_top_story(), language)
+            elif "summary" in input:
+                voice.output_speech(news.summaries_headlines(), language)
             else:
                 headlines = news.get_headlines()
 
